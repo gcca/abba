@@ -25,7 +25,7 @@ class Journal(models.Model):
     name = models.CharField(max_length=256)
 
 
-class BibliographicDatabase(models.models):
+class BibliographicDatabase(models.Model):
     name = models.CharField(max_length=128)
 
 
@@ -46,3 +46,7 @@ class Article(models.Model):
     author = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     indexed_by = models.ManyToManyField(BibliographicDatabase)
     raw_languages = models.CharField(max_length=128)  # ISO 639-1
+
+    @property
+    def languages(self):
+        return self.raw_languages.split(',')
